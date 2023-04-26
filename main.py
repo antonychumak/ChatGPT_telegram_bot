@@ -31,6 +31,7 @@ def main():
 
     telegram_config = {
         'token': os.environ['TELEGRAM_BOT_TOKEN'],
+        'url': os.environ['TELEGRAM_BOT_URL'],
         'allowed_user_ids': os.environ.get('ALLOWED_TELEGRAM_USER_IDS', '*'),
     }
 

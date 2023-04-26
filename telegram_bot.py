@@ -29,8 +29,15 @@ class ChatGPT3TelegramBot:
         """
         await update.message.reply_text("/reset - Оновлює бесіду\n"
                                         "[Будь яке повідомлення] - Відправляє ваше повідомлення до AI\n"
-                                        "/help - Меню помічника\n\n",
+                                        "/help - Меню помічника\n"
+                                        "/get_link_bot - Поділись ботом з друзями \n\n",
                                         disable_web_page_preview=True)
+
+    async def get_link_bot(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """
+        Повертає URL телеграм Бота
+        """
+        await update.message.reply_text(self.config["url"])
 
     async def reset(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """
@@ -107,6 +114,7 @@ class ChatGPT3TelegramBot:
         application.add_handler(CommandHandler('reset', self.reset))
         application.add_handler(CommandHandler('help', self.help))
         application.add_handler(CommandHandler('start', self.help))
+        application.add_handler(CommandHandler('get_link_bot', self.get_link_bot))
         application.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), self.prompt))
 
         application.add_error_handler(self.error_handler)
